@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [RSG]">
+  <test name="TestLogin">
+    <classes>
+      <class name="com.rsg.RC_Check.ConversionTest"/>
+    </classes>
+  </test> <!-- TestLogin -->
+  <test name="TestHomePage">
+    <classes>
+      <class name="com.rsg.RC_Check.HomePageAndReachAnalysisTest"/>
+    </classes>
+  </test> <!-- TestHomePage -->
+  <test name="TestHomePage(failed)">
+    <classes>
+      <class name="com.rsg.RC_Check.HomePageAndReachAnalysisTest">
+        <methods>
+          <include name="setUP"/>
+          <include name="checkSpotOnHomePage"/>
+        </methods>
+      </class> <!-- com.rsg.RC_Check.HomePageAndReachAnalysisTest -->
+      <class name="com.rsg.RC_Check.ConversionTest">
+        <methods>
+          <include name="setUP"/>
+          <include name="tearDown"/>
+        </methods>
+      </class> <!-- com.rsg.RC_Check.ConversionTest -->
+    </classes>
+  </test> <!-- TestHomePage(failed) -->
+</suite> <!-- Failed suite [RSG] -->
