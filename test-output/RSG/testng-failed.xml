@@ -11,20 +11,20 @@
       <class name="com.rsg.RC_Check.HomePageAndReachAnalysisTest"/>
     </classes>
   </test> <!-- TestHomePage -->
-  <test name="TestHomePage(failed)">
+  <test name="TestLogin(failed)">
     <classes>
       <class name="com.rsg.RC_Check.HomePageAndReachAnalysisTest">
         <methods>
           <include name="setUP"/>
-          <include name="checkSpotOnHomePage"/>
         </methods>
       </class> <!-- com.rsg.RC_Check.HomePageAndReachAnalysisTest -->
       <class name="com.rsg.RC_Check.ConversionTest">
         <methods>
+          <include name="checkVisibilityOfRCGraphs"/>
           <include name="setUP"/>
           <include name="tearDown"/>
         </methods>
       </class> <!-- com.rsg.RC_Check.ConversionTest -->
     </classes>
-  </test> <!-- TestHomePage(failed) -->
+  </test> <!-- TestLogin(failed) -->
 </suite> <!-- Failed suite [RSG] -->

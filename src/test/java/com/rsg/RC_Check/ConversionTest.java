@@ -25,6 +25,7 @@ public class ConversionTest {
 	DBUtility db;
 	Conversion conv;
 	Logger log;
+	Reach r;
 
 	@BeforeClass
 	public void setUP() {
@@ -39,6 +40,7 @@ public class ConversionTest {
 		action = new Actions(driver);
 		jse = (JavascriptExecutor) driver;
 		conv = new Conversion();
+		r = new Reach();
 		driver.get(conv.baseUrl);
 		driver.manage().window().maximize();
 		driver.findElement(conv.username).sendKeys("ketansa@rsgsystems.com");
@@ -58,16 +60,15 @@ public class ConversionTest {
 			if (result[i][0].contains("-")) {
 				result[i][0] = result[i][0].split("-")[0];
 				driver.findElement(conv.typeSearch).sendKeys(result[i][0]);
-				String autoSuggestPath = "//*[starts-with(@class,'tt-suggestion')]/p[contains(text(),\"";
+
 				wait.until(ExpectedConditions
-						.visibilityOfElementLocated(By.xpath(autoSuggestPath + result[i][0] + "\")]")));
-				projectName = driver.findElement(By.xpath(autoSuggestPath + result[i][0] + "\")]"));
+						.visibilityOfElementLocated(By.xpath(r.autoSuggestPath1 + result[i][0] + "\")]")));
+				projectName = driver.findElement(By.xpath(r.autoSuggestPath1 + result[i][0] + "\")]"));
 			} else {
 				driver.findElement(conv.typeSearch).sendKeys(result[i][0]);
-				String autoSuggestPath = "//*[starts-with(@class,'tt-suggestion')]/p[text()=\"";
 				wait.until(ExpectedConditions
-						.visibilityOfElementLocated(By.xpath(autoSuggestPath + result[i][0] + "\"]")));
-				projectName = driver.findElement(By.xpath(autoSuggestPath + result[i][0] + "\"]"));
+						.visibilityOfElementLocated(By.xpath(r.autoSuggestPath2 + result[i][0] + "\"]")));
+				projectName = driver.findElement(By.xpath(r.autoSuggestPath2 + result[i][0] + "\"]"));
 			}
 			projectName.click();
 			driver.findElement(By.id("btnConversion")).click();
@@ -87,13 +88,29 @@ public class ConversionTest {
 			boolean flag12 = !convPerSpot.contains("null");
 			boolean allPresent = flag1 && flag2 && flag3 && flag4 && flag5 && flag6 && flag7 && flag8 && flag9 && flag10
 					&& flag11 && flag12;
+			int rowCount = 0;
 			if (!allPresent) {
 				String countOfPromos = "Select count(*) from PR_PROMO Where PROMO_ID in(Select Distinct PROMO_ID from PR_PROMO_AIRING where Project_ID ="
 						+ result[i][2] + ");";
-				int rowCount = Integer.parseInt(db.getCountOfRows(countOfPromos));
+				rowCount = Integer.parseInt(db.getCountOfRows(countOfPromos));
 				if (rowCount != 0)
-					log.debug("Conversion graphs missing for " + result[i][0] + " for channel id " + result[i][1]);
+					log.debug(
+							"Conversion graphs missing for " + result[i][0] + " for channel id " + result[i][1] + "\n");
 			}
+			driver.findElement(By.id("btnReach")).click();
+			db.waitForAjax(driver);
+			boolean flag13 = driver.findElements(r.reachByNtwrk).size() > 0;
+			boolean flag14 = driver.findElements(r.reachByFreq).size() > 0;
+			boolean flag15 = driver.findElements(r.actualReachPrcntCnt).size() > 0;
+			boolean flag16 = driver.findElements(r.actualReachTotalCnt).size() > 0;
+			boolean flag17 = driver.findElements(r.actualImpsCnt).size() > 0;
+			boolean flag18 = driver.findElements(r.actualGrpCnt).size() > 0;
+			boolean chkAll = flag13 && flag14 && flag15 && flag16 && flag17 && flag18;
+			if (!chkAll) {
+				if (rowCount != 0)
+					log.debug("Reach graphs missing for " + result[i][0] + " for channel id " + result[i][1] + "\n");
+			}
+
 		}
 		db.DBConnectionClose();
 	}
