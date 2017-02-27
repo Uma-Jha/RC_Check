@@ -2,16 +2,16 @@
 <testng-results skipped="0" failed="1" total="2" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="RSG" duration-ms="372469" started-at="2017-02-24T06:09:26Z" finished-at="2017-02-24T06:15:39Z">
+  <suite name="RSG" duration-ms="1206203" started-at="2017-02-24T10:37:16Z" finished-at="2017-02-24T10:57:23Z">
     <groups>
     </groups>
-    <test name="TestLogin" duration-ms="122902" started-at="2017-02-24T06:09:26Z" finished-at="2017-02-24T06:11:29Z">
+    <test name="TestLogin" duration-ms="435579" started-at="2017-02-24T10:37:16Z" finished-at="2017-02-24T10:44:32Z">
       <class name="com.rsg.RC_Check.ConversionTest">
-        <test-method status="PASS" signature="setUP()[pri:0, instance:com.rsg.RC_Check.ConversionTest@397ed7]" name="setUP" is-config="true" duration-ms="42414" started-at="2017-02-24T11:39:27Z" finished-at="2017-02-24T11:40:09Z">
+        <test-method status="PASS" signature="setUP()[pri:0, instance:com.rsg.RC_Check.ConversionTest@397ed7]" name="setUP" is-config="true" duration-ms="139373" started-at="2017-02-24T16:07:17Z" finished-at="2017-02-24T16:09:36Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUP -->
-        <test-method status="FAIL" signature="checkVisibilityOfRCGraphs()[pri:0, instance:com.rsg.RC_Check.ConversionTest@397ed7]" name="checkVisibilityOfRCGraphs" duration-ms="74504" started-at="2017-02-24T11:40:09Z" finished-at="2017-02-24T11:41:23Z">
+        <test-method status="FAIL" signature="checkVisibilityOfRCGraphs()[pri:0, instance:com.rsg.RC_Check.ConversionTest@397ed7]" name="checkVisibilityOfRCGraphs" duration-ms="284441" started-at="2017-02-24T16:09:36Z" finished-at="2017-02-24T16:14:21Z">
           <exception class="java.lang.NullPointerException">
             <full-stacktrace>
               <![CDATA[java.lang.NullPointerException
@@ -46,19 +46,19 @@
           <reporter-output>
           </reporter-output>
         </test-method> <!-- checkVisibilityOfRCGraphs -->
-        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.rsg.RC_Check.ConversionTest@397ed7]" name="tearDown" is-config="true" duration-ms="5924" started-at="2017-02-24T11:41:23Z" finished-at="2017-02-24T11:41:29Z">
+        <test-method status="PASS" signature="tearDown()[pri:0, instance:com.rsg.RC_Check.ConversionTest@397ed7]" name="tearDown" is-config="true" duration-ms="11236" started-at="2017-02-24T16:14:21Z" finished-at="2017-02-24T16:14:32Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
       </class> <!-- com.rsg.RC_Check.ConversionTest -->
     </test> <!-- TestLogin -->
-    <test name="TestHomePage" duration-ms="249289" started-at="2017-02-24T06:11:30Z" finished-at="2017-02-24T06:15:39Z">
+    <test name="TestHomePage" duration-ms="770349" started-at="2017-02-24T10:44:32Z" finished-at="2017-02-24T10:57:23Z">
       <class name="com.rsg.RC_Check.HomePageAndReachAnalysisTest">
-        <test-method status="PASS" signature="setUP()[pri:0, instance:com.rsg.RC_Check.HomePageAndReachAnalysisTest@bfbc86]" name="setUP" is-config="true" duration-ms="28576" started-at="2017-02-24T11:41:30Z" finished-at="2017-02-24T11:41:58Z">
+        <test-method status="PASS" signature="setUP()[pri:0, instance:com.rsg.RC_Check.HomePageAndReachAnalysisTest@bfbc86]" name="setUP" is-config="true" duration-ms="110661" started-at="2017-02-24T16:14:32Z" finished-at="2017-02-24T16:16:23Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUP -->
-        <test-method status="PASS" signature="checkSpotOnHomePage()[pri:0, instance:com.rsg.RC_Check.HomePageAndReachAnalysisTest@bfbc86]" name="checkSpotOnHomePage" duration-ms="220705" started-at="2017-02-24T11:41:58Z" finished-at="2017-02-24T11:45:39Z">
+        <test-method status="PASS" signature="checkSpotOnHomePage()[pri:0, instance:com.rsg.RC_Check.HomePageAndReachAnalysisTest@bfbc86]" name="checkSpotOnHomePage" duration-ms="659546" started-at="2017-02-24T16:16:23Z" finished-at="2017-02-24T16:27:22Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- checkSpotOnHomePage -->
