@@ -15,9 +15,7 @@
   </properties>
 <build>
     <plugins>
-        <!-- START Of Plugins -->
-        <!-- MAVEN COMPILER PLUGIN -->
-        <plugin>
+       <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
             <version>3.6.1</version>
@@ -26,7 +24,16 @@
                 <target>1.8</target>
             </configuration>
         </plugin>
-        <!-- END Of Plugins -->
+        <plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <version>2.12</version>
+    <configuration>
+      <suiteXmlFiles>
+        <suiteXmlFile>testng.xml</suiteXmlFile>
+      </suiteXmlFiles>
+    </configuration>
+  </plugin>
     </plugins>
 </build>
   <dependencies>

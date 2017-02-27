@@ -37,6 +37,7 @@ public class HomePageAndReachAnalysisTest {
 		System.setProperty("webdriver.chrome.driver", "D://chromedriver.exe");
 		ChromeOptions options = new ChromeOptions();
 		options.addArguments("--disable-extensions");
+		options.addArguments("--dns-prefetch-disable");
 		String log4jConfPath = "./log4j.properties";
 		PropertyConfigurator.configure(log4jConfPath);
 		log = Logger.getLogger("devpinoyLogger");
