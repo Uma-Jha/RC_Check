@@ -48,7 +48,7 @@ public class DBUtility {
 		System.out.println("Total projects : " + rows);
 		String[][] result = new String[rows][3];
 		int i = 0;
-		String prjctChannnelIdQuery = "select NAME,MEDIA_OUTLET_ID,PROJECT_ID from PR_PROJECT where DATEDIFF(CURDATE()-INTERVAL 4 DAY,DATE(greatest(PREMIERE_DATE,END_DATE)))<=14 and DATEDIFF(DATE(greatest(PREMIERE_DATE,END_DATE)),CURDATE()-INTERVAL 4 DAY)<=0 and MEDIA_OUTLET_ID in (12) order by MEDIA_OUTLET_ID;";
+		String prjctChannnelIdQuery = "select NAME,MEDIA_OUTLET_ID,PROJECT_ID from PR_PROJECT where DATEDIFF(CURDATE()-INTERVAL 4 DAY,DATE(greatest(PREMIERE_DATE,END_DATE)))<=14 and DATEDIFF(DATE(greatest(PREMIERE_DATE,END_DATE)),CURDATE()-INTERVAL 4 DAY)<=0 and MEDIA_OUTLET_ID in (1, 2, 3, 11, 12, 13, 15, 20, 21, 37, 41, 46, 53, 78, 96, 166) order by MEDIA_OUTLET_ID;";
 		rs = ReturnResultSet(prjctChannnelIdQuery);
 		while (rs.next()) {
 			result[i][0] = rs.getString("NAME");

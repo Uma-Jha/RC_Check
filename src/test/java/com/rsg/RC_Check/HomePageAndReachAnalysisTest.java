@@ -72,12 +72,12 @@ public class HomePageAndReachAnalysisTest {
 				String countOfPromos = "select count(*) from PR_PROMO_AIRING where PROJECT_ID=" + projectId + ";";
 				int rowCount = Integer.parseInt(db.getCountOfRows(countOfPromos));
 				if (rowCount != 0) {
-					String query = "Select min(PlayDtTime),max(PlayDtTime) from PR_PROMO_AIRING where project_id="
+					String query = "Select min(PlayDtTime),max(LogDate) from PR_PROMO_AIRING where project_id="
 							+ projectId;
 					ResultSet rs = db.ReturnResultSet(query);
 					rs.next();
 					String promoMappingStartDate = rs.getString(1).split(" ")[0];
-					String promoMappingEndDate = rs.getString(2).split(" ")[0];
+					String promoMappingEndDate = rs.getString(2);
 					query = "select count(*) from REF_CAL_PERIOD where FISCAL_QTR='2Q17' and PERIOD_TYPE_CD='W' and START_DATE='"
 							+ promoMappingStartDate + "';";
 					int flag = Integer.parseInt(db.getCountOfRows(query));
@@ -88,11 +88,33 @@ public class HomePageAndReachAnalysisTest {
 					int actualReachCount = projects.get(i).findElements(r.actualReachCnt).size();
 					prjctReachCntList.put(projectName, actualReachCount);
 					int actualBarCount = projects.get(i).findElements(r.actualBarCnt).size();
-
 					if (totalWeeks != actualBarCount) {
-						log.debug("Spot count doesn't match for project " + projectName + " for channel id "
-								+ channels[k]);
-						log.debug("\n");
+						log.debug("Weeks for which promos displayed on UI is not correct for " + projectName);
+					}
+					if (actualReachCount == 0 && actualBarCount != 0) {
+						query = "select count(*) from REF_MEDIA_OUTLET_DEMO where MEDIA_OUTLET_ID=" + channels[k]
+								+ " and DEFAULT_YN='Y';";
+						int channelDefaultDemo = Integer.parseInt(db.getCountOfRows(query));
+						String prefix = "select TARGET_DEMO_ID from PR_PROJECT where NAME=\"";
+						query = prefix + projectName + "\";";
+						String projectTargetDemo = db.getCountOfRows(query);
+						if (channelDefaultDemo != 0
+								&& !(projectTargetDemo.equals(null) || projectTargetDemo.isEmpty())) {
+							query = "select NAME from REF_DEMO where DEMO_ID in(select DEMO_ID from REF_MEDIA_OUTLET_DEMO where MEDIA_OUTLET_ID="
+									+ channels[k] + " and DEFAULT_YN='Y');";
+							String channelTargetDemo = db.getCountOfRows(query);
+							if (channelTargetDemo.equals(projectTargetDemo)) {
+								log.debug("Spot count doesn't match for project " + projectName + " for channel id "
+										+ channels[k] + "\n");
+							} else {
+								log.debug("Target demo and channel default demo not same for " + projectName);
+
+							}
+
+						} else {
+							log.debug("Demo not set for channel id " + channels[k] + " or for project " + projectName);
+
+						}
 					}
 				}
 			}
@@ -159,16 +181,29 @@ public class HomePageAndReachAnalysisTest {
 				 */
 				boolean flag = reachByChannel && reachByFreq && actualReachPrcnt && actualReachTotal && actualImps
 						&& actualGrp;
-				if (!flag)
-					log.debug("All graphs of Reach not present on UI for project " + e.getKey() + " for network id \n"
-							+ channels[k] + "\n");
-				if (e.getValue() != actualReachPrcntCount || e.getValue() != actualReachTotalCount
-						|| e.getValue() != actualImpsCount || e.getValue() != actualGrpCount) {
-					log.debug(
-							"Count of weeks for which Actual Reach %, Reach Total, Imps and GRP data is shown on UI is not\nsame for project "
-									+ e.getKey() + " for channel id " + channels[k] + "\n");
-					log.debug("Actual % and Total Reach week count is : " + actualReachTotalCount + "\n");
-					log.debug("Actual Imps and GRP count week count is : " + actualGrpCount + "\n");
+				if (!flag) {
+					if (!reachByChannel)
+						log.debug("Reach by Channel graph missing for " + e.getKey());
+					if (!reachByFreq)
+						log.debug("Reach by Frequency graph missing for " + e.getKey());
+					if (!actualReachPrcnt)
+						log.debug("Actual Reach % graph missing for " + e.getKey());
+					if (!actualReachTotal)
+						log.debug("Actual Reach Total graph missing for " + e.getKey());
+					if (!actualImps)
+						log.debug("Actual Imps graph missing for " + e.getKey());
+					if (!actualGrp)
+						log.debug("Actual GRP graph missing for " + e.getKey());
+				} else {
+
+					if (e.getValue() != actualReachPrcntCount || e.getValue() != actualReachTotalCount
+							|| e.getValue() != actualImpsCount || e.getValue() != actualGrpCount) {
+						log.debug("Issue with Reach graphs for " + e.getKey() + " for network id " + channels[k]);
+						log.debug("Week count for which reach is shown on home page is " + e.getValue());
+						log.debug("Week count for which Actual Reach % and Total Reach is shown is "
+								+ actualReachTotalCount);
+						log.debug("Week count for which IMPS and GRP is shown is " + actualGrpCount + "\n");
+					}
 				}
 
 			}
